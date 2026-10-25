@@ -1,0 +1,243 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Anecdocs</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : fiches de cabinet de curiosités sur papier de registre froid ; une couleur par rubrique, une fiche « à la une » en tête. */
+:root{
+  --paper:#eef1f1; --card:#fbfcfc; --ink:#17222d; --muted:#56636e; --rule:#cfd7da;
+  --hist:#7a4b2a; --spec:#1f6a6a; --etym:#3c3f8f; --prem:#9b2335;
+  --legend:#8a6a00; --legend-bg:#f6ecc8; --ok-bg:#e3eeea; --ok:#2c5e4c; --disc-bg:#efe6f1; --disc:#6a3c74;
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Literata", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11171c; --card:#182027; --ink:#e5eaec; --muted:#9aa7b0; --rule:#2c3740;
+  --hist:#d29a6e; --spec:#5cbcb3; --etym:#9ea3ef; --prem:#ef7f8e;
+  --legend:#e8c45a; --legend-bg:#3a3018; --ok-bg:#1d3329; --ok:#86cfae; --disc-bg:#33243a; --disc:#d7a6e2;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11171c; --card:#182027; --ink:#e5eaec; --muted:#9aa7b0; --rule:#2c3740;
+  --hist:#d29a6e; --spec:#5cbcb3; --etym:#9ea3ef; --prem:#ef7f8e;
+  --legend:#e8c45a; --legend-bg:#3a3018; --ok-bg:#1d3329; --ok:#86cfae; --disc-bg:#33243a; --disc:#d7a6e2;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:1120px;margin:0 auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--etym);outline-offset:2px}
+header.mast{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;padding-block:28px 18px;border-bottom:1px solid var(--rule)}
+.mast h1{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4.5vw,2.8rem);line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.mast p{margin:0;font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+
+.une{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px 40px;padding-block:36px;border-bottom:1px solid var(--rule)}
+.une .eyebrow{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--spec)}
+.une h2{font-family:var(--display);font-weight:500;font-style:italic;font-size:clamp(2rem,5vw,3.4rem);line-height:1.02;margin:.25em 0 .35em;text-wrap:balance}
+.une .big{font-family:var(--display);font-weight:700;font-size:clamp(4rem,11vw,7.5rem);line-height:.9;color:var(--spec);font-variant-numeric:lining-nums}
+.une .big small{display:block;font-family:var(--mono);font-size:.8rem;font-weight:400;color:var(--muted);letter-spacing:.06em;margin-top:10px}
+.une p{margin:0 0 .8em;max-width:62ch}
+.une .src{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+
+.tools{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding-block:22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:.78rem;border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:999px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--c,var(--muted))}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip .n{opacity:.6}
+.side{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.side input,.side select{font:inherit;font-size:.9rem;background:var(--card);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:7px 10px}
+.side input{width:min(240px,100%)}
+.count{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:18px}
+.fiche{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:18px 20px 16px;display:flex;flex-direction:column;gap:10px;min-width:0;position:relative}
+.fiche::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--c);border-radius:4px 0 0 4px}
+.meta{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:var(--muted)}
+.rub{color:var(--c);text-transform:uppercase;letter-spacing:.1em}
+.fiche h3{font-family:var(--display);font-weight:700;font-size:1.32rem;line-height:1.15;margin:0;text-wrap:balance}
+.root{font-family:var(--display);font-style:italic;font-size:1.05rem;color:var(--c)}
+.root span{font-family:var(--mono);font-style:normal;font-size:.75rem;color:var(--muted);margin-left:6px}
+.fiche p{margin:0;font-size:.95rem}
+.foot{margin-top:auto;padding-top:10px;border-top:1px dashed var(--rule);display:flex;flex-direction:column;gap:6px}
+.statut{align-self:flex-start;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border-radius:3px}
+.s-etabli{background:var(--ok-bg);color:var(--ok)}
+.s-discute{background:var(--disc-bg);color:var(--disc)}
+.s-legende{background:var(--legend-bg);color:var(--legend)}
+.note{font-size:.82rem;color:var(--muted);font-style:italic}
+.sources{font-family:var(--mono);font-size:.72rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
+.sources a{text-underline-offset:2px}
+.empty{padding:40px 0;color:var(--muted);font-style:italic}
+.legende-box{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:10px 28px;font-size:.85rem;color:var(--muted)}
+.legende-box div{display:flex;gap:8px;align-items:center}
+@media (max-width:720px){.une{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.fiche{transition:transform .15s ease}.fiche:hover{transform:translateY(-2px)}}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <h1>Anecdocs</h1>
+    <p>Anecdotes historiques sur la santé, chacune sourcée</p>
+  </header>
+
+  <section class="une" aria-labelledby="une-titre">
+    <div>
+      <div class="eyebrow">À la une · anesthésie</div>
+      <h2 id="une-titre">Le jour où l'éther est entré au bloc</h2>
+      <p>Le vendredi 16 octobre 1846, dans l'amphithéâtre opératoire du Massachusetts General Hospital à Boston, le dentiste William Morton fait inhaler des vapeurs d'éther à Edward Gilbert Abbott. Le chirurgien John Collins Warren lui retire ensuite une tumeur du cou sans que le patient ne souffre.</p>
+      <p>Morton avait baptisé son produit « Letheon » et refusait d'en révéler la composition ; son odeur trahissait pourtant l'éther. La salle porte depuis le nom d'Ether Dome, et le 16 octobre est devenu la Journée mondiale de l'anesthésie.</p>
+      <p class="src">Sources : <a href="https://hekint.org/what-november-may-bring-the-first-37-days-of-surgical-anesthesia/" target="_blank" rel="noopener">Hektoen International</a> · <a href="https://en.wikipedia.org/wiki/Ether_Dome" target="_blank" rel="noopener">Ether Dome (Wikipedia)</a></p>
+    </div>
+    <div class="big" id="anniv">180 ans<small>16 octobre 1846 → 16 octobre 2026</small></div>
+  </section>
+
+  <div class="tools">
+    <div class="chips" role="group" aria-label="Filtrer par rubrique" id="chips"></div>
+    <div class="side">
+      <input id="q" type="search" placeholder="Chercher un nom, un mot…" aria-label="Chercher dans les fiches">
+      <select id="tri" aria-label="Ordre des fiches">
+        <option value="chrono">Ordre chronologique</option>
+        <option value="rubrique">Par rubrique</option>
+      </select>
+      <span class="count" id="count" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <footer class="legende-box">
+    <div><span class="statut s-etabli">Établi</span> faits confirmés par les sources citées</div>
+    <div><span class="statut s-discute">Discuté</span> le fond est établi, un détail fait débat</div>
+    <div><span class="statut s-legende">Légende</span> récit répandu sans source d'époque</div>
+  </footer>
+</div>
+
+<script>
+const RUB = {
+  hist:{label:"Histoire", c:"var(--hist)"},
+  spec:{label:"Spécialités", c:"var(--spec)"},
+  etym:{label:"Étymologie", c:"var(--etym)"},
+  prem:{label:"Premières", c:"var(--prem)"}
+};
+const STATUT = {etabli:"Établi", discute:"Discuté", legende:"Légende"};
+
+const FICHES = [
+ {r:"hist", an:1816, date:"1816", t:"Le premier stéthoscope était un cahier roulé",
+  x:"À l'hôpital Necker, René Laennec examine une jeune patiente atteinte d'un trouble cardiaque. Coller l'oreille contre sa poitrine n'est guère praticable. Il roule un cahier de papier, en pose un bout sur le cœur et entend les battements plus nettement qu'à l'oreille nue. Le rouleau devient vite un cylindre de bois, et les acheteurs de son traité de 1819 reçoivent un stéthoscope avec le livre.",
+  s:"etabli", src:[["Universalis","https://www.universalis.fr/encyclopedie/rene-theophile-hyacinthe-laennec/"],["Bibnum","https://journals.openedition.org/bibnum/pdf/517"]]},
+ {r:"hist", an:1847, date:"1847–1865", t:"Semmelweis, sauveur des mères, mort à l'asile",
+  x:"À Vienne en 1847, Ignace Semmelweis impose aux étudiants qui sortent de la salle de dissection un lavage des mains au chlorure de chaux. La mortalité par fièvre puerpérale s'effondre. Ses collègues rejettent pourtant l'idée qu'ils transmettent la maladie. En 1865, il est interné à Döbling, près de Vienne, où il meurt à 47 ans.",
+  n:"Les circonstances exactes de sa mort restent débattues par les historiens.",
+  s:"discute", src:[["Hérodote","https://www.herodote.net/Le_pionnier_du_lavage_des_mains-synthese-2703-530.php"],["Hektoen International","https://hekint.org/?p=50009"]]},
+ {r:"hist", an:1840, date:"vers 1840", t:"L'opération à 300 % de mortalité",
+  x:"Robert Liston, chirurgien écossais, amputait une jambe en deux minutes et demie, avant l'anesthésie. On raconte qu'au cours d'une amputation il aurait tranché les doigts de son assistant et le manteau d'un spectateur : le patient et l'assistant seraient morts d'infection, le spectateur de frayeur. Ses chiffres réels sont plus flatteurs : 10 décès sur 66 amputations entre 1835 et 1840, mieux que la moyenne de l'époque.",
+  n:"Aucune source précise ne documente l'épisode des trois morts.",
+  s:"legende", src:[["Medical Independent","https://www.medicalindependent.ie/2025/10/13/a-300-per-cent-mortality-rate-for-one-surgery-fact-or-fiction/"],["Past Medical History","https://pastmedicalhistory.co.uk/?p=522"]]},
+ {r:"hist", an:1984, date:"juillet 1984", t:"Le médecin qui a bu sa bactérie",
+  x:"Faute de réussir à infecter des animaux, Barry Marshall, à Perth, avale un bouillon de culture d'Helicobacter pylori après avoir vérifié par endoscopie que son estomac était sain. En quelques jours il vomit chaque matin ; la biopsie montre une gastrite. Avec Robin Warren, il prouvait ainsi qu'une bactérie, et non le stress, cause la plupart des ulcères. Ils reçoivent le prix Nobel en 2005.",
+  s:"etabli", src:[["Lasker Foundation","https://laskerfoundation.org/gut-feeling/"],["Wikipedia","https://en.wikipedia.org/wiki/Barry_Marshall"]]},
+
+ {r:"spec", an:1846, date:"16 oct. 1846", t:"L'anesthésie, née chez un dentiste",
+  x:"Le 16 octobre 1846, le dentiste William Morton endort Edward Gilbert Abbott à l'éther devant les médecins du Massachusetts General Hospital. Crawford Long avait utilisé l'éther dès 1842 en Géorgie, mais n'a publié ses cas qu'en 1849 : c'est la démonstration publique qui a lancé la spécialité. Le 21 décembre suivant, Robert Liston opère sous éther à Londres.",
+  s:"etabli", src:[["Hektoen International","https://hekint.org/what-november-may-bring-the-first-37-days-of-surgical-anesthesia/"],["Wikipedia","https://en.wikipedia.org/wiki/Ether_Dome"]]},
+ {r:"spec", an:1895, date:"22 déc. 1895", t:"La radiologie commence par une alliance",
+  x:"Le 8 novembre 1895, à Würzburg, Wilhelm Röntgen observe un rayonnement inconnu qui traverse la matière. Il s'enferme six semaines dans son laboratoire. Le 22 décembre, il radiographie la main gauche de son épouse Anna Bertha : les os apparaissent, et la bague se détache nettement. Röntgen reçoit en 1901 le tout premier prix Nobel de physique.",
+  s:"etabli", src:[["Völklinger Hütte","https://guide.voelklinger-huette.org/en/kuenstlerinnen/wilhelm-conrad-roentgen/"],["Guinness","https://www.guinnessworldrecords.com/world-records/107090-first-x-ray"]]},
+ {r:"spec", an:1909, date:"1909", t:"La gériatrie, calquée sur la pédiatrie",
+  x:"De retour d'une visite à Vienne, sa ville natale, le médecin new-yorkais Ignatz Nascher publie en 1909 un article intitulé « Geriatrics ». Il forge le mot sur le modèle de pediatrics, du grec gêras, la vieillesse. En 1914, il peine à trouver un éditeur pour le premier traité de la discipline. Les puristes notent que la forme correcte aurait été « gérontiatrie ».",
+  s:"etabli", src:[["Wiener Med. Wochenschrift","https://link.springer.com/article/10.1007/s10354-025-01112-9"],["Etymonline","https://www.etymonline.com/word/geriatrics"]]},
+ {r:"spec", an:1929, date:"1929", t:"Une sonde jusqu'à son propre cœur",
+  x:"Jeune interne à Eberswalde, Werner Forssmann n'obtient pas l'autorisation de tenter un cathétérisme cardiaque. Il le pratique sur lui-même : une sonde introduite par une veine du bras, puis une radiographie pour prouver qu'elle atteint le cœur droit. Sa hiérarchie est furieuse, il quitte la cardiologie pour l'urologie. Le prix Nobel le rattrape en 1956.",
+  n:"Il avait adhéré au parti nazi en 1932, un fait longtemps passé sous silence.",
+  s:"etabli", src:[["Wikipedia","https://en.wikipedia.org/wiki/Werner_Forssmann"],["Urologia Internationalis","https://karger.silverchair-cdn.com/uin/article/96/4/379/322928/Werner-Forssmann-A-Nobel-Prize-Winner-and-His"]]},
+
+ {r:"etym", an:-400, date:"Antiquité", t:"Muscle", root:"musculus", gloss:"« petite souris »",
+  x:"En latin, musculus est le diminutif de mus, la souris. Un biceps qui roule sous la peau évoquait une petite souris qui court. Le grec fait la même image avec mys, d'où le préfixe myo- de myocarde ou myopathie. Le même mot latin a donné la moule, par ressemblance de forme.",
+  s:"etabli", src:[["Académie française","https://www.dictionnaire-academie.fr/article/DNP0958"],["Etymonline","https://www.etymonline.com/fr/word/muscle"]]},
+ {r:"etym", an:-400, date:"Antiquité", t:"Cancer", root:"karkinos", gloss:"« crabe »",
+  x:"Les médecins grecs, dont Hippocrate puis Galien, comparaient certaines tumeurs à un crabe : les veines gonflées qui en partent ressemblaient à des pattes. Le latin cancer traduit le mot. L'allemand dit toujours Krebs, qui désigne aussi l'animal. Dans l'Antiquité, karkinos s'appliquait d'ailleurs à des grosseurs bénignes autant qu'à des tumeurs mortelles.",
+  s:"etabli", src:[["Etymonline","https://www.etymonline.com/fr/word/canker"],["Cancer (2025)","https://www.ebsco.com/articles/history/a3b1af28-bc1a-53cf-8d27-8be9ea02030f/karkinos-in-ancient-medicine-more-than-just-fatal-cancer"]]},
+ {r:"etym", an:1377, date:"27 juil. 1377", t:"Quarantaine", root:"quaranta", gloss:"« quarante »",
+  x:"La première loi d'isolement date de 1377 à Raguse, l'actuelle Dubrovnik : les voyageurs venant de zones touchées par la peste devaient attendre un mois hors de la ville. On parlait alors de trentino, trente jours. La durée est ensuite portée à quarante jours, d'où le vénitien quarantena.",
+  s:"etabli", src:[["Gensini et al., 2004","https://library.alnap.org/system/files/content/resource/files/main/gensini%2C-g-the-concept-of-quarantine-in-history.pdf"],["History.com","https://history.com/news/quarantine-black-death-medieval"]]},
+ {r:"etym", an:1718, date:"XVIIIe s.", t:"Malaria", root:"mal'aria", gloss:"« mauvais air »",
+  x:"Le médecin italien Francesco Torti emploie le terme au début du XVIIIe siècle : on croyait que la fièvre venait des vapeurs des marais. Il faut attendre 1880 pour qu'Alphonse Laveran découvre le parasite dans le sang, puis la fin du siècle pour que le rôle du moustique soit établi. Le nom garde la trace de l'erreur.",
+  s:"etabli", src:[["Etymonline","https://www.etymonline.com/word/malaria"],["SCMP","https://amp.scmp.com/magazines/post-magazine/short-reads/article/3175395/how-malaria-got-its-name-why-it-was-misnomer"]]},
+ {r:"etym", an:1743, date:"1743", t:"Influenza", root:"influenza", gloss:"« influence » des astres",
+  x:"En italien médiéval, une épidémie était attribuée à l'influence des étoiles. Le mot désigne des maladies dès le début du XVIe siècle. En 1743, une épidémie partie d'Italie traverse l'Europe, et la presse anglaise reprend le terme italien. Le français a préféré « grippe », mais influenza reste le nom scientifique du virus.",
+  s:"etabli", src:[["Emerging Infectious Diseases","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3291418/"],["Etymonline","https://www.etymonline.com/word/influenza"]]},
+ {r:"etym", an:1881, date:"1881", t:"Vaccin", root:"vacca", gloss:"« vache »",
+  x:"Edward Jenner protégeait de la variole en inoculant la vaccine, une maladie de la vache. Pendant près d'un siècle, « vacciner » ne voulait dire que cela. En 1881, au congrès médical de Londres, Pasteur propose d'étendre le mot à toutes les inoculations préventives, en hommage explicite à Jenner.",
+  s:"etabli", src:[["Comptes Rendus Biologies","https://comptes-rendus.academie-sciences.fr/biologies/item/10.5802/crbiol.83.pdf"],["Inserm","https://ipubli.inserm.fr/bitstream/handle/10608/10048/SKS_2014_Vaccinations_introduction.pdf"]]},
+
+ {r:"prem", an:1922, date:"11 & 23 janv. 1922", t:"Leonard Thompson, 14 ans, premier patient sous insuline",
+  x:"Hospitalisé à Toronto, il pèse environ 30 kg et approche du coma diabétique. La première injection, le 11 janvier, provoque une réaction allergique due aux impuretés. Le chimiste James Collip purifie l'extrait ; le 23 janvier, la glycémie de Leonard redescend. Il vivra encore treize ans.",
+  s:"etabli", src:[["Science Museum Group","https://collection.sciencemuseumgroup.org.uk/people/cp167047/leonard-thompson"],["Origins (Ohio State)","https://origins.osu.edu/read/first-insulin-injection-treatment-diabetes"]]},
+ {r:"prem", an:1958, date:"8 oct. 1958", t:"26 stimulateurs cardiaques pour un seul patient",
+  x:"Arne Larsson, ingénieur suédois de 43 ans, perd connaissance des dizaines de fois par jour. Sa femme Else-Marie convainc le chirurgien Åke Senning d'implanter l'appareil encore expérimental de Rune Elmqvist. Le premier tient quelques heures, le second fonctionne. Larsson meurt fin 2001 à 86 ans, après 26 stimulateurs, en ayant survécu à son chirurgien et à l'inventeur.",
+  s:"etabli", src:[["Deseret News","https://www.deseret.com/2002/1/15/19631621/first-pacemaker-recipient-dies-at-86"],["Wikipedia","https://en.wikipedia.org/wiki/%C3%85ke_Senning"]]},
+ {r:"prem", an:1967, date:"3 déc. 1967", t:"Dix-huit jours avec le cœur d'une autre",
+  x:"Au Groote Schuur Hospital du Cap, Christiaan Barnard greffe à Louis Washkansky, 54 ans, le cœur de Denise Darvall, 25 ans, tuée dans un accident. Le patient se réveille et parle avec sa femme, mais meurt dix-huit jours plus tard d'une pneumonie favorisée par les antirejets. Le patient suivant de Barnard vivra dix-neuf mois.",
+  s:"etabli", src:[["Cardiovasc. J. Africa","https://pmc.ncbi.nlm.nih.gov/articles/PMC4200566/"],["PBS","https://www.pbs.org/wgbh/aso/databank/entries/bmbarn.html"]]},
+ {r:"prem", an:2001, date:"7 sept. 2001", t:"Opérée à Strasbourg depuis New York",
+  x:"Depuis la Sixième Avenue, Jacques Marescaux et Michel Gagner pilotent le robot Zeus qui retire la vésicule biliaire d'une patiente de 68 ans à Strasbourg. L'intervention dure 54 minutes, une équipe reste sur place en cas de problème. Le nom de l'opération rend hommage à la traversée de l'Atlantique par Lindbergh en 1927.",
+  s:"etabli", src:[["Annals of Surgery","https://pmc.ncbi.nlm.nih.gov/articles/PMC1422462/"],["Universalis","https://www.universalis.fr/encyclopedie/operation-lindbergh/"]]},
+ {r:"prem", an:2005, date:"27 nov. 2005", t:"La première greffe de visage, à Amiens",
+  x:"Défigurée en mai 2005, Isabelle Dinoire, 38 ans, reçoit au CHU d'Amiens le triangle nez-lèvres-menton d'une donneuse. L'opération est menée par Bernard Devauchelle et Jean-Michel Dubernard, avec Benoît Lengelé. Elle vivra onze ans avec ce visage, malgré plusieurs épisodes de rejet, et meurt en avril 2016 à 49 ans.",
+  s:"etabli", src:[["Le Temps","https://www.letemps.ch/societe/un-nouveau-visage-une-vie-normale"],["Lyon Capitale","https://www.lyoncapitale.fr/?p=109981"]]}
+];
+
+const state={rub:"tout",q:"",tri:"chrono"};
+try{const s=JSON.parse(localStorage.getItem("carnet-etat")||"{}");Object.assign(state,s)}catch(e){}
+
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const chipsEl=document.getElementById("chips"), grid=document.getElementById("grid");
+const qEl=document.getElementById("q"), triEl=document.getElementById("tri"), countEl=document.getElementById("count");
+
+function renderChips(){
+  const opts=[["tout","Tout",null,FICHES.length]].concat(Object.entries(RUB).map(([k,v])=>[k,v.label,v.c,FICHES.filter(f=>f.r===k).length]));
+  chipsEl.innerHTML="";
+  opts.forEach(([k,l,c,n])=>{
+    const b=document.createElement("button");b.className="chip";b.type="button";b.id="chip-"+k;
+    if(c)b.style.setProperty("--c",c);
+    b.setAttribute("aria-pressed",state.rub===k);
+    b.innerHTML=(c?'<span class="dot"></span>':'')+l+' <span class="n">'+n+'</span>';
+    b.onclick=()=>{state.rub=k;save();renderChips();render()};
+    chipsEl.appendChild(b);
+  });
+}
+function esc(s){return s.replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+function render(){
+  const q=norm(state.q.trim());
+  let list=FICHES.filter(f=>(state.rub==="tout"||f.r===state.rub)&&(!q||norm(f.t+" "+f.x+" "+(f.root||"")+" "+(f.n||"")).includes(q)));
+  const order=Object.keys(RUB);
+  list.sort(state.tri==="chrono"?(a,b)=>a.an-b.an:(a,b)=>order.indexOf(a.r)-order.indexOf(b.r)||a.an-b.an);
+  countEl.textContent=list.length+(list.length>1?" fiches":" fiche");
+  if(!list.length){grid.innerHTML='<p class="empty">Aucune fiche ne correspond. Essayez un autre mot ou une autre rubrique.</p>';return}
+  grid.innerHTML=list.map(f=>{
+    const R=RUB[f.r];
+    return `<article class="fiche" style="--c:${R.c}">
+      <div class="meta"><span class="rub">${R.label}</span><span>${esc(f.date)}</span></div>
+      <h3>${esc(f.t)}</h3>
+      ${f.root?`<div class="root">${esc(f.root)}<span>${esc(f.gloss)}</span></div>`:""}
+      <p>${esc(f.x)}</p>
+      <div class="foot">
+        <span class="statut s-${f.s}">${STATUT[f.s]}</span>
+        ${f.n?`<span class="note">${esc(f.n)}</span>`:""}
+        <div class="sources">${f.src.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>
+      </div></article>`}).join("");
+}
+function save(){try{localStorage.setItem("carnet-etat",JSON.stringify({rub:state.rub,tri:state.tri}))}catch(e){}}
+qEl.value=state.q; triEl.value=state.tri;
+qEl.addEventListener("input",()=>{state.q=qEl.value;render()});
+triEl.addEventListener("change",()=>{state.tri=triEl.value;save();render()});
+
+(function(){const y=new Date().getFullYear();const n=y-1846;const d=document.getElementById("anniv");
+  d.innerHTML=n+' ans<small>16 octobre 1846 → 16 octobre '+y+'</small>'})();
+renderChips();render();
+</script>
+
+</body></html>
